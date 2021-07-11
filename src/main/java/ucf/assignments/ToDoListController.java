@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.MessageFormat;
 
 /*
  *  UCF COP3330 Summer 2021 Assignment 4 Solution
@@ -92,7 +93,7 @@ public class ToDoListController{
     }
     @FXML
     public void markItemCompleteButton(ActionEvent actionEvent) {
-        var item = getCurrentItem();
+        Item item = getCurrentItem();
         item.setComplete(true);
         itemDisplay.refresh();
         //this button will change an item to be marked as complete
@@ -100,14 +101,18 @@ public class ToDoListController{
     @FXML
     public void saveListButton(ActionEvent actionEvent) {
         JsonObject object = new JsonObject();
-
+        JsonObject itemAsJSON = new JsonObject();
+        for(int i = 0; i < arrayList.size(); i++){
+            object.put("Name", arrayList.get(i).getName());
+            object.put("Description", arrayList.get(i).getDescription());
+            object.put("Due Date", arrayList.get(i).getDueDate());
+            object.put("Status", arrayList.get(i).isComplete());
+            itemAsJSON.put("Item " + i, object.get(i));
+        }
         try {
             FileWriter writer = new FileWriter("resources/SaveItemData.json");
-            for(int i = 0; i < arrayList.size(); i++){
-                object.put("Item " + i, arrayList.get(i).toString());
-                writer.write("\n");
-            }
-            writer.write(object.toJson());
+
+            writer.write(itemAsJSON.toJson());
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
