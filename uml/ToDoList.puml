@@ -1,0 +1,48 @@
+@startuml
+'https://plantuml.com/class-diagram
+MainApp --|> ToDoListController
+ToDoListController --|> Item
+ToDoListController --|> ListFunctions
+class MainApp{
+start()
+main()
+}
+
+class ToDoListController{
+initialize()
+textToStringButton()
+addItemButton()
+removeItemButton()
+removeEverythingFromListButton()
+editItemDateButton()
+editItemDescriptionButton()
+displayIncompleteItemButton()
+displayCompleteItemButton()
+displayEverythingButton()
+markItemCompleteButton()
+markItemIncompleteButton()
+saveListButton()
+loadListButton()
+getCurrentItem()
+}
+class ListFunctions{
+editItem()
+isWithinLimit()
+isValidDate()
+isEmpty()
+}
+class Item{
+   name
+   description
+   dueDate
+   isComplete
+   getName()
+   toString()
+   getDescription()
+   setDescription()
+   getDueDate()
+   setDueDate()
+   isComplete()
+   setComplete()
+}
+@enduml

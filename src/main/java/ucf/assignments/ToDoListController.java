@@ -31,6 +31,13 @@ public class ToDoListController{
     public void initialize(){
         itemDisplay.setItems(filteredList);
     }
+
+    @FXML
+    public String textToStringButton(ActionEvent actionEvent) {
+        //returns whatever text is in the text box
+        return listFunctions.editItem(textItem);
+    }
+
     @FXML
     public void addItemButton(ActionEvent actionEvent) {
         //call textToStringButton to grab the text
@@ -78,6 +85,20 @@ public class ToDoListController{
     }
 
     @FXML
+    public void editItemDescriptionButton(ActionEvent actionEvent) {
+        //gets the selected item we want to edit
+        Item item = getCurrentItem();
+        String text = textToStringButton(actionEvent);
+        //call isWithinLimit to get the list function
+        if(listFunctions.isWithinLimit(text))
+            item.setDescription(text);
+        //refreshes display so the item doesn't need to be clicked off
+        //to see updated item
+        itemDisplay.refresh();
+
+    }
+
+    @FXML
     public void displayIncompleteListButton(ActionEvent actionEvent) {
         //the filtered list will go through item.isComplete and display all incomplete items
         filteredList.setPredicate(item -> !item.isComplete());
@@ -91,23 +112,9 @@ public class ToDoListController{
     }
 
     @FXML
-    public void displayListItemsButton(ActionEvent actionEvent) {
+    public void displayEverythingButton(ActionEvent actionEvent) {
         //defaults to all lists regardless of status
         filteredList.setPredicate(item -> true);
-    }
-
-    @FXML
-    public void editItemDescriptionButton(ActionEvent actionEvent) {
-        //gets the selected item we want to edit
-        Item item = getCurrentItem();
-        String text = textToStringButton(actionEvent);
-        //call isWithinLimit to get the list function
-        if(listFunctions.isWithinLimit(text))
-            item.setDescription(text);
-        //refreshes display so the item doesn't need to be clicked off
-        //to see updated item
-        itemDisplay.refresh();
-
     }
 
     @FXML
@@ -163,12 +170,6 @@ public class ToDoListController{
 
 
 
-    }
-
-    @FXML
-    public String textToStringButton(ActionEvent actionEvent) {
-        //returns whatever text is in the text box
-        return listFunctions.editItem(textItem);
     }
 
     public Item getCurrentItem(){

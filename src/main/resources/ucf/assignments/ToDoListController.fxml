@@ -20,7 +20,7 @@
             <children>
                 <Button mnemonicParsing="false" onAction="#displayCompleteItemsButton" prefHeight="25.0" prefWidth="196.0" text="Display complete items in list" />
                 <Button mnemonicParsing="false" onAction="#displayIncompleteListButton" prefHeight="25.0" prefWidth="196.0" text="Display incomplete items in list" />
-                <Button mnemonicParsing="false" onAction="#displayListItemsButton" prefHeight="25.0" prefWidth="194.0" text="Display items in list" />
+                <Button mnemonicParsing="false" onAction="#displayEverythingButton" prefHeight="25.0" prefWidth="194.0" text="Display items in list" />
                 <Button mnemonicParsing="false" onAction="#removeItemButton" prefHeight="25.0" prefWidth="198.0" text="Remove an item" />
             <Button mnemonicParsing="false" onAction="#removeEverythingFromListButton" prefHeight="42.0" prefWidth="195.0" text="Remove all items" />
             </children>

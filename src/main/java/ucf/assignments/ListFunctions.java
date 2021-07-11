@@ -15,8 +15,6 @@ import java.util.ArrayList;
  */
 public class ListFunctions {
 
-    private static ArrayList<String> megaList;
-    private static TextArea textArea;
     @FXML
     public String editItem(javafx.scene.control.TextField textItem){
         return textItem.getText();
@@ -39,11 +37,10 @@ public class ListFunctions {
             return false;
         }
     }
-    public boolean isEmpty(int number){
-        if(number == 0)
+    public boolean isEmpty(int number) {
+        if (number == 0)
             return true;
         else
             return false;
     }
-
 }
