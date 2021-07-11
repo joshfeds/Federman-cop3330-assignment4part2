@@ -16,13 +16,13 @@
                 <ListView fx:id="itemDisplay" prefHeight="457.0" prefWidth="374.0" />
             </children>
         </VBox>
-        <VBox layoutX="204.0" layoutY="72.0" prefHeight="123.0" prefWidth="195.0">
+        <VBox layoutX="204.0" layoutY="72.0" prefHeight="127.0" prefWidth="195.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#markItemCompleteButton" prefHeight="25.0" prefWidth="196.0" text="Mark item complete" />
-                <Button mnemonicParsing="false" onAction="#displayCompleteItemsButton" prefHeight="25.0" prefWidth="196.0" text="Display complete list items" />
+                <Button mnemonicParsing="false" onAction="#displayCompleteItemsButton" prefHeight="25.0" prefWidth="196.0" text="Display complete items in list" />
                 <Button mnemonicParsing="false" onAction="#displayIncompleteListButton" prefHeight="25.0" prefWidth="196.0" text="Display incomplete items in list" />
-                <Button mnemonicParsing="false" onAction="#displayListItemsButton" prefHeight="25.0" prefWidth="194.0" text="Display list items" />
-            <Button mnemonicParsing="false" onAction="#loadListButton" prefHeight="25.0" prefWidth="198.0" text="Load all lists" />
+                <Button mnemonicParsing="false" onAction="#displayListItemsButton" prefHeight="25.0" prefWidth="194.0" text="Display items in list" />
+                <Button mnemonicParsing="false" onAction="#removeItemButton" prefHeight="25.0" prefWidth="198.0" text="Remove an item" />
+            <Button mnemonicParsing="false" onAction="#removeEverythingFromListButton" prefHeight="42.0" prefWidth="195.0" text="Remove all items" />
             </children>
         </VBox>
         <VBox layoutX="8.0" layoutY="297.0" prefHeight="205.0" prefWidth="393.0">
@@ -44,13 +44,15 @@
                   </VBox>
             </children>
         </VBox>
-      <VBox layoutX="14.0" layoutY="72.0" prefHeight="123.0" prefWidth="170.0">
+      <VBox layoutX="14.0" layoutY="72.0" prefHeight="101.0" prefWidth="170.0">
          <children>
-                <Button mnemonicParsing="false" onAction="#removeItemButton" prefHeight="25.0" prefWidth="198.0" text="Remove an item" />
                 <Button mnemonicParsing="false" onAction="#saveListButton" prefHeight="25.0" prefWidth="195.0" text="Save a list" textAlignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#loadListButton" prefHeight="25.0" prefWidth="198.0" text="Load a list" />
+                <Button mnemonicParsing="false" onAction="#markItemCompleteButton" prefHeight="25.0" prefWidth="196.0" text="Mark item complete" />
+            <Button mnemonicParsing="false" onAction="#markItemIncompleteButton" prefHeight="25.0" prefWidth="196.0" text="Mark item incomplete" />
          </children>
       </VBox>
-      <Text layoutX="38.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a list/item to modify/display/save/load" wrappingWidth="353.330078125">
+      <Text layoutX="38.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select an item to modify/display/save/load" wrappingWidth="353.330078125">
          <font>
             <Font name="System Bold Italic" size="24.0" />
          </font>

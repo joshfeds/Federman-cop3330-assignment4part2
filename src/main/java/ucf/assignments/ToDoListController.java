@@ -52,17 +52,43 @@ public class ToDoListController{
         }
 
     }
+
+    @FXML
+    public void removeEverythingFromListButton(ActionEvent actionEvent) {
+        int size = arrayList.size();
+
+        while(!listFunctions.isEmpty(size)){
+            arrayList.remove(size - 1);
+            size--;
+        }
+    }
+
+    @FXML
+    public void editItemDateButton(ActionEvent actionEvent) {
+        //gets the current item selected
+        Item item = getCurrentItem();
+        //grabs the due date
+        String date = textToStringButton(actionEvent);
+        if(listFunctions.isValidDate(date))
+            item.setDueDate(date);
+        //refreshes display so the item doesn't need to be clicked off
+        //to see updated item
+        itemDisplay.refresh();
+    }
+
     @FXML
     public void displayIncompleteListButton(ActionEvent actionEvent) {
         //the filtered list will go through item.isComplete and display all incomplete items
         filteredList.setPredicate(item -> !item.isComplete());
 
     }
+
     @FXML
     public void displayCompleteItemsButton(ActionEvent actionEvent) {
         // //the filtered list will go through item.isComplete and display all complete items
         filteredList.setPredicate(item -> item.isComplete());
     }
+
     @FXML
     public void displayListItemsButton(ActionEvent actionEvent) {
         //defaults to all lists regardless of status
@@ -73,51 +99,62 @@ public class ToDoListController{
     public void editItemDescriptionButton(ActionEvent actionEvent) {
         //gets the selected item we want to edit
         Item item = getCurrentItem();
-        //sets the description from the textToStringButton
-        item.setDescription(textToStringButton(actionEvent));
+        String text = textToStringButton(actionEvent);
+        //call isWithinLimit to get the list function
+        if(listFunctions.isWithinLimit(text))
+            item.setDescription(text);
         //refreshes display so the item doesn't need to be clicked off
         //to see updated item
         itemDisplay.refresh();
 
     }
-    @FXML
-    public void editItemDateButton(ActionEvent actionEvent) {
-        //gets the current item selected
-        Item item = getCurrentItem();
-        //grabs the due date
-        item.setDueDate(textToStringButton(actionEvent));
-        //refreshes display so the item doesn't need to be clicked off
-        //to see updated item
-        itemDisplay.refresh();
-    }
+
     @FXML
     public void markItemCompleteButton(ActionEvent actionEvent) {
         //gets the item selected from itemDisplay
         Item item = getCurrentItem();
-        //changes boolean value of isCompelte to true
+        //changes boolean value of item.setComplete to true
         item.setComplete(true);
         //refreshes display so the item doesn't need to be clicked off
         //to see updated item
         itemDisplay.refresh();
     }
+
+    @FXML
+    public void markItemIncompleteButton(ActionEvent actionEvent) {
+        //gets the item selected from itemDisplay
+        Item item = getCurrentItem();
+        //changes boolean value of item.setComplete to false
+        item.setComplete(false);
+        //refreshes display so the item doesn't need to be clicked off
+        //to see updated item
+        itemDisplay.refresh();
+    }
+
     @FXML
     public void saveListButton(ActionEvent actionEvent) {
+        //create json object and array
         JsonObject object = new JsonObject();
         JsonArray jsonArray = new JsonArray();
+        //loop to add each item in the arrayList to the json object
         for(int i = 0; i < arrayList.size(); i++){
             object.addProperty("Item " + (i + 1), arrayList.get(i).toString());
         }
+        //add the object to the json array
         jsonArray.add(object);
+        //try-catch for writing to file
         try {
             FileWriter writer = new FileWriter("resources/SaveItemData.json");
-            writer.write(object + "\n");
+            writer.write(object.toString());
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @FXML
     public void loadListButton(ActionEvent actionEvent) throws FileNotFoundException {
+        //read file
         File reader = new File("resources/SaveItemData.json");
         JsonElement file = JsonParser.parseReader(new FileReader(reader));
         JsonArray object = file.getAsJsonArray();
@@ -126,11 +163,13 @@ public class ToDoListController{
 
 
     }
+
     @FXML
     public String textToStringButton(ActionEvent actionEvent) {
         //returns whatever text is in the text box
-        return listFunctions.addItem(textItem);
+        return listFunctions.editItem(textItem);
     }
+
     public Item getCurrentItem(){
         //grabs index within listView
         int focusedIndex = itemDisplay.getFocusModel().getFocusedIndex();
@@ -138,4 +177,5 @@ public class ToDoListController{
         Item item = arrayList.get(focusedIndex);
         return item;
     }
+
 }
