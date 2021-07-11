@@ -9,10 +9,10 @@ import java.util.ArrayList;
  */
 public class ListFunctions {
 
-    private static ArrayList<SetGetItem> megaList;
+    private static ArrayList<String> megaList;
     private static TextArea textArea;
     public void addList(String listName){
-
+        megaList.add(SetGetItem.getDate("hello"));
         //Creates a new list from the listName string and add it to
         // the megaList
     }

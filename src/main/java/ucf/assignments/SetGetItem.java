@@ -5,13 +5,26 @@ package ucf.assignments;
  */
 public class SetGetItem {
     private static String description;
-    private static String date;
+    private static boolean isComplete;
 
-    public SetGetItem (String description, String date){
-        this.description = description;
-        this.date = date;
+    public static java.lang.String getDescription() {
+        return description;
     }
 
+    public static String getDate(String date) {
+        return date;
+    }
 
+    public static String setDescription(String description) {
+        SetGetItem.description = description;
+        return SetGetItem.description;
+    }
 
+    public static boolean isIsComplete() {
+        return isComplete;
+    }
+
+    public static void setIsComplete(boolean isComplete) {
+        SetGetItem.isComplete = isComplete;
+    }
 }

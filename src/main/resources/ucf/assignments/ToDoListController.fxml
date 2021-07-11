@@ -14,7 +14,6 @@
         <VBox layoutX="403.0" layoutY="27.0" prefHeight="474.0" prefWidth="374.0">
             <children>
                 <ListView fx:id="itemDisplay" prefHeight="457.0" prefWidth="374.0" />
-                <Button mnemonicParsing="false" onAction="#selectItemButton" prefHeight="25.0" prefWidth="375.0" text="Select Item" textAlignment="CENTER" />
             </children>
         </VBox>
         <VBox layoutX="204.0" layoutY="72.0" prefHeight="123.0" prefWidth="195.0">
