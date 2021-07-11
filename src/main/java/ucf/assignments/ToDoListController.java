@@ -56,7 +56,7 @@ public class ToDoListController{
     @FXML
     public void removeEverythingFromListButton(ActionEvent actionEvent) {
         int size = arrayList.size();
-
+        //test to see if the arrayList is empty
         while(!listFunctions.isEmpty(size)){
             arrayList.remove(size - 1);
             size--;
@@ -69,6 +69,7 @@ public class ToDoListController{
         Item item = getCurrentItem();
         //grabs the due date
         String date = textToStringButton(actionEvent);
+        //test to see if user input is a valid date
         if(listFunctions.isValidDate(date))
             item.setDueDate(date);
         //refreshes display so the item doesn't need to be clicked off
