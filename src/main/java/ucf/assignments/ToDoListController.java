@@ -1,15 +1,17 @@
 package ucf.assignments;
 
-import com.github.cliftonlabs.json_simple.JsonObject;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.MessageFormat;
+import java.io.*;
 
 /*
  *  UCF COP3330 Summer 2021 Assignment 4 Solution
@@ -24,111 +26,116 @@ public class ToDoListController{
     public ObservableList<Item> arrayList = FXCollections.observableArrayList();
 
     public FilteredList<Item> filteredList = new FilteredList<Item>(arrayList);
+    public ListFunctions listFunctions = new ListFunctions();
     @FXML
     public void initialize(){
         itemDisplay.setItems(filteredList);
     }
     @FXML
     public void addItemButton(ActionEvent actionEvent) {
+        //call textToStringButton to grab the text
         String s = textToStringButton(actionEvent);
+        //add the string to the arrayList
         arrayList.add(new Item(s));
-        //list has to be selected
-        //this button adds a single item to a list given by the TextArea
-        //we will call addItem in Items to act this button out
+
     }
     @FXML
     public void removeItemButton(ActionEvent actionEvent) {
-        var focusedIndex = itemDisplay.getFocusModel().getFocusedIndex();
+        //the focusedIndex allows us to know an item has been selected from itemDisplay
+        int focusedIndex = itemDisplay.getFocusModel().getFocusedIndex();
+        //if focus is selected
         if(focusedIndex > -1)
         {
-            var sourceIndex = filteredList.getSourceIndex(focusedIndex);
+            //sourceIndex is where we will be removing from
+            int sourceIndex = filteredList.getSourceIndex(focusedIndex);
             arrayList.remove(sourceIndex);
         }
-        //An item have to be selected
-        //This button will remove the selected item from the selected list
-        //to do this, we call removeItem in the Items class given a list
+
     }
     @FXML
     public void displayIncompleteListButton(ActionEvent actionEvent) {
+        //the filtered list will go through item.isComplete and display all incomplete items
         filteredList.setPredicate(item -> !item.isComplete());
-        //this button shows all incomplete items in a to-do list
-        //in order for this to work, we need to call getIncompleteItems, which will
-        //return the incomplete lists as a string to display
-        //it will display in the TextArea
+
     }
     @FXML
     public void displayCompleteItemsButton(ActionEvent actionEvent) {
+        // //the filtered list will go through item.isComplete and display all complete items
         filteredList.setPredicate(item -> item.isComplete());
-        //this button shows all complete items in a to-do list
-        //in order for t
-        // his to work, we need to call getCompleteItems, which will
-        //return the complete lists as a string to display
-        //it will display in the TextArea
     }
     @FXML
     public void displayListItemsButton(ActionEvent actionEvent) {
+        //defaults to all lists regardless of status
         filteredList.setPredicate(item -> true);
-        //shows all items from a list that has been selected
-        //to get this to work, we call itemsToString with the parameter of the list selected
-        //
-        //it will display in the TextArea
     }
 
     @FXML
     public void editItemDescriptionButton(ActionEvent actionEvent) {
-        var item = getCurrentItem();
+        //gets the selected item we want to edit
+        Item item = getCurrentItem();
+        //sets the description from the textToStringButton
         item.setDescription(textToStringButton(actionEvent));
+        //refreshes display so the item doesn't need to be clicked off
+        //to see updated item
         itemDisplay.refresh();
-        //list and item have to be selected.
-        //this button will give an item a new description
-        //we call
+
     }
     @FXML
     public void editItemDateButton(ActionEvent actionEvent) {
-        var item = getCurrentItem();
+        //gets the current item selected
+        Item item = getCurrentItem();
+        //grabs the due date
         item.setDueDate(textToStringButton(actionEvent));
+        //refreshes display so the item doesn't need to be clicked off
+        //to see updated item
         itemDisplay.refresh();
-        //Make sure a list and item has been selected.
-        //Updates an items with a new due date
     }
     @FXML
     public void markItemCompleteButton(ActionEvent actionEvent) {
+        //gets the item selected from itemDisplay
         Item item = getCurrentItem();
+        //changes boolean value of isCompelte to true
         item.setComplete(true);
+        //refreshes display so the item doesn't need to be clicked off
+        //to see updated item
         itemDisplay.refresh();
-        //this button will change an item to be marked as complete
     }
     @FXML
     public void saveListButton(ActionEvent actionEvent) {
         JsonObject object = new JsonObject();
-        JsonObject itemAsJSON = new JsonObject();
+        JsonArray jsonArray = new JsonArray();
         for(int i = 0; i < arrayList.size(); i++){
-            object.put("Name", arrayList.get(i).getName());
-            object.put("Description", arrayList.get(i).getDescription());
-            object.put("Due Date", arrayList.get(i).getDueDate());
-            object.put("Status", arrayList.get(i).isComplete());
-            itemAsJSON.put("Item " + i, object.get(i));
+            object.addProperty("Item " + (i + 1), arrayList.get(i).toString());
         }
+        jsonArray.add(object);
         try {
             FileWriter writer = new FileWriter("resources/SaveItemData.json");
-
-            writer.write(itemAsJSON.toJson());
+            writer.write(object + "\n");
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     @FXML
-    public void loadListButton(ActionEvent actionEvent) {
+    public void loadListButton(ActionEvent actionEvent) throws FileNotFoundException {
+        File reader = new File("resources/SaveItemData.json");
+        JsonElement file = JsonParser.parseReader(new FileReader(reader));
+        JsonArray object = file.getAsJsonArray();
+        arrayList.add(new Item(object.toString()));
+
+
 
     }
     @FXML
     public String textToStringButton(ActionEvent actionEvent) {
-        return textItem.getText();
+        //returns whatever text is in the text box
+        return listFunctions.addItem(textItem);
     }
     public Item getCurrentItem(){
-        var focusedIndex = itemDisplay.getFocusModel().getFocusedIndex();
-        var item = arrayList.get(focusedIndex);
+        //grabs index within listView
+        int focusedIndex = itemDisplay.getFocusModel().getFocusedIndex();
+        //sends index of the item and retuns
+        Item item = arrayList.get(focusedIndex);
         return item;
     }
 }
