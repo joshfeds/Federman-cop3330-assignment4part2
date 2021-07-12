@@ -2,12 +2,10 @@ package ucf.assignments;
 
 import javafx.fxml.FXML;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-import java.util.ArrayList;
 
 /*
  *  UCF COP3330 Summer 2021 Assignment 4 Solution
