@@ -166,10 +166,8 @@ public class ToDoListController{
         File reader = new File("resources/SaveItemData.json");
         JsonElement file = JsonParser.parseReader(new FileReader(reader));
         JsonArray object = file.getAsJsonArray();
+        //add from JSON file to arraylist
         arrayList.add(new Item(object.toString()));
-
-
-
     }
 
     public Item getCurrentItem(){
