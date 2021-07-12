@@ -21,8 +21,8 @@ public class Item{
     }
 
     public String toString(){
-        return MessageFormat.format("Name: {0}\nDescription: {1}\n" +
-                "Due Date: {2}\nStatus: {3}", getName(), getDescription(), getDueDate(), isComplete() ? "Complete" : "Incomplete");
+        return MessageFormat.format("Description: {0}\n" +
+                "Due Date: {1}\nStatus: {2}", getDescription(), getDueDate(), isComplete() ? "Complete" : "Incomplete");
 
     }
 
