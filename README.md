@@ -1,6 +1,6 @@
 # Federman-cop3330-assignment4part2
 Shout out to Rey for this suggestion  
-To add an item: Type the name of the item into the Textfield and press the "Add a new item to the list" button.  
+To add an item: Press the "Add a new item to the list" button.  
 To delete an item: Select the item you would like to be deleted from the ListView and then press "Remove an item"  
 To clear all items: Delete the program or press "Remove all items"
 To edit an item's description: Have an item selected and type text into the Textfield, then press "Edit an item's description"  
